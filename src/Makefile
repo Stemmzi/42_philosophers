@@ -1,8 +1,9 @@
 NAME				=	philo
-SRC					=	philo.c
+SRC					=	utils.c input_handler.c init.c philo.c
 OBJ					=	$(SRC:.c=.o)
 CFLAGS				=	-Wall -Wextra -Werror
 CC					=	cc
+FSANITIZE			=	-g -fsanitize=address
 
 all: $(NAME)
 
@@ -22,7 +23,10 @@ fclean: clean
 	rm -f $(NAME)
 
 t: all
-	@./$(NAME)
+	@./$(NAME) 5 120 430 180 3
+
+f: $(OBJ)
+	$(CC) $(OBJ) $(FSANITIZE) -pthread -o $(NAME)
 
 re: fclean all
 
