@@ -6,7 +6,7 @@
 /*   By: sgeiger <sgeiger@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 18:47:31 by sgeiger           #+#    #+#             */
-/*   Updated: 2024/05/26 00:02:31 by sgeiger          ###   ########.fr       */
+/*   Updated: 2024/05/28 22:29:39 by sgeiger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,15 @@
 typedef struct s_data	t_data;
 typedef pthread_mutex_t	t_mtx;
 
+typedef enum e_write_op
+{
+	OP_FORK,
+	OP_EAT,
+	OP_SLEEP,
+	OP_THINK,
+	OP_DIED
+}	t_write_op;
+
 typedef struct s_philo
 {
 	t_data		*data;
@@ -37,6 +46,11 @@ struct s_data
 {
 	t_philo		*philos;
 	t_mtx		*forks;
+	bool		dead;
+	int			full;
+	long		start_time;
+	long		elapsed_time;
+	bool		dinner_ready;
 	int			num_of_philo;
 	int			time_to_die;
 	int			time_to_eat;

@@ -10,20 +10,17 @@ all: $(NAME)
 $(NAME): $(OBJ)
 	$(CC) $(OBJ) -pthread -o $(NAME)
 
-$(LIBFT):
-	$(MAKE) -C libft
-
 %.o: %.c
 	$(CC) $(CFLAGS) -o $@ -c $<
 
 clean:
-	rm -rf obj
+	rm -f $(OBJ)
 
 fclean: clean
 	rm -f $(NAME)
 
 t: all
-	@./$(NAME) 5 120 430 180 3
+	@./$(NAME) 6 500 120 180 3
 
 f: $(OBJ)
 	$(CC) $(OBJ) $(FSANITIZE) -pthread -o $(NAME)

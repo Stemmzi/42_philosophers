@@ -6,7 +6,7 @@
 /*   By: sgeiger <sgeiger@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 23:31:32 by sgeiger           #+#    #+#             */
-/*   Updated: 2024/05/25 23:58:21 by sgeiger          ###   ########.fr       */
+/*   Updated: 2024/05/27 19:35:30 by sgeiger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,11 +52,16 @@ void	input_handler(t_data *data, int argc, char *argv[])
 			cleanup_exit("Error: Only positive numbers as input!\n");
 		i++;
 	}
+	data->dead = false;
+	data->full = 0;
+	data->dinner_ready = false;
 	data->num_of_philo = ft_atoi(argv[1]);
 	data->time_to_die = ft_atoi(argv[2]);
 	data->time_to_eat = ft_atoi(argv[3]);
 	data->time_to_sleep = ft_atoi(argv[4]);
 	if (argc == 6)
 		data->num_must_eat = ft_atoi(argv[5]);
+	else
+		data->num_must_eat = 0;
 	// check_numbers(); for min/max
 }

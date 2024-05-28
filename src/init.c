@@ -6,7 +6,7 @@
 /*   By: sgeiger <sgeiger@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 23:59:35 by sgeiger           #+#    #+#             */
-/*   Updated: 2024/05/26 20:59:19 by sgeiger          ###   ########.fr       */
+/*   Updated: 2024/05/28 21:46:08 by sgeiger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,8 @@ void	init_mutex(t_data *data)
 
 void	init_data(t_data *data)
 {
-	init_philo(data);
 	init_mutex(data);
+	usleep(150);
+	init_philo(data);
+	usleep(150);
 }
