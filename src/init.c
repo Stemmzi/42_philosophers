@@ -6,7 +6,7 @@
 /*   By: sgeiger <sgeiger@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 23:59:35 by sgeiger           #+#    #+#             */
-/*   Updated: 2024/05/28 21:46:08 by sgeiger          ###   ########.fr       */
+/*   Updated: 2024/05/29 00:15:38 by sgeiger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ void	init_philo(t_data *data)
 	{
 		data->philos[i].data = data;
 		data->philos[i].num_ate = 0;
+		data->philos[i].status = EATING;
 		data->philos[i].id = i + 1;
 		data->philos[i].r_fork = &data->forks[i];
 		if (data->philos[i].id == data->num_of_philo)

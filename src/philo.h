@@ -6,7 +6,7 @@
 /*   By: sgeiger <sgeiger@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 18:47:31 by sgeiger           #+#    #+#             */
-/*   Updated: 2024/05/28 22:29:39 by sgeiger          ###   ########.fr       */
+/*   Updated: 2024/05/29 01:46:08 by sgeiger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,12 +32,22 @@ typedef enum e_write_op
 	OP_DIED
 }	t_write_op;
 
+//??
+typedef enum e_status
+{
+	EATING,
+	SLEEPING,
+	THINKING,
+	DEAD
+} t_status;
+
 typedef struct s_philo
 {
 	t_data		*data;
 	pthread_t	th;
 	int			id;
 	int			num_ate;
+	t_status	status;
 	t_mtx		*l_fork;
 	t_mtx		*r_fork;
 }				t_philo;
@@ -63,6 +73,9 @@ struct s_data
 size_t	ft_strlen(const char *s);
 void	ft_bzero(void *b, size_t len);
 int		ft_atoi(const char *str);
+long	get_time(t_data *data);
+void	safe_write(t_data *data, t_philo *philo, t_write_op op);
+void	sleep_until(t_data *data, long duration);
 
 // input handler
 void	input_handler(t_data *data, int argc, char *argv[]);
