@@ -1,5 +1,5 @@
 NAME				=	philo
-SRC					=	utils.c input_handler.c init.c philo.c
+SRC					=	utils.c input_handler.c init.c cleanup_exit.c philo.c
 OBJ					=	$(SRC:.c=.o)
 CFLAGS				=	-Wall -Wextra -Werror
 CC					=	cc
@@ -20,10 +20,10 @@ fclean: clean
 	rm -f $(NAME)
 
 t: all
-	@./$(NAME) 15 500 100 250 8
+	@./$(NAME) 8 500 250 100 5
 
 to: all
-	@./$(NAME) 15 500 250 100 3 > output.txt
+	@./$(NAME) 15 500 250 100 5 > output.txt
 
 f: $(OBJ)
 	$(CC) $(OBJ) $(FSANITIZE) -pthread -o $(NAME)

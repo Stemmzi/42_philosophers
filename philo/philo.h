@@ -6,7 +6,7 @@
 /*   By: sgeiger <sgeiger@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 18:47:31 by sgeiger           #+#    #+#             */
-/*   Updated: 2024/05/29 01:46:08 by sgeiger          ###   ########.fr       */
+/*   Updated: 2024/05/29 22:04:12 by sgeiger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ typedef struct s_philo
 	pthread_t	th;
 	int			id;
 	int			num_ate;
+	long		last_meal_time;
 	t_status	status;
 	t_mtx		*l_fork;
 	t_mtx		*r_fork;
@@ -56,11 +57,11 @@ struct s_data
 {
 	t_philo		*philos;
 	t_mtx		*forks;
-	bool		dead;
 	int			full;
 	long		start_time;
 	long		elapsed_time;
 	bool		dinner_ready;
+	bool		dinner_over;
 	int			num_of_philo;
 	int			time_to_die;
 	int			time_to_eat;
@@ -73,6 +74,7 @@ struct s_data
 size_t	ft_strlen(const char *s);
 void	ft_bzero(void *b, size_t len);
 int		ft_atoi(const char *str);
+
 long	get_time(t_data *data);
 void	safe_write(t_data *data, t_philo *philo, t_write_op op);
 void	sleep_until(t_data *data, long duration);
@@ -81,6 +83,12 @@ void	sleep_until(t_data *data, long duration);
 void	input_handler(t_data *data, int argc, char *argv[]);
 
 // init
-void	init_data(t_data *data);
+void	init_mutex(t_data *data);
+void	init_philo(t_data *data);
+void	init_time(t_data *data);
+
+//cleanup and exit
+void	cleanup_exit(char *str);
+void	join_threads(t_data *data);
 
 #endif

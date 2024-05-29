@@ -6,21 +6,11 @@
 /*   By: sgeiger <sgeiger@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 23:31:32 by sgeiger           #+#    #+#             */
-/*   Updated: 2024/05/27 19:35:30 by sgeiger          ###   ########.fr       */
+/*   Updated: 2024/05/29 22:02:23 by sgeiger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-
-void	cleanup_exit(char *str)
-{
-	size_t	len;
-
-	len = ft_strlen(str);
-	write(STDERR_FILENO, str, len);
-	// free(data->philos);
-	exit(EXIT_FAILURE);
-}
 
 bool	is_number(char *str)
 {
@@ -52,9 +42,9 @@ void	input_handler(t_data *data, int argc, char *argv[])
 			cleanup_exit("Error: Only positive numbers as input!\n");
 		i++;
 	}
-	data->dead = false;
 	data->full = 0;
 	data->dinner_ready = false;
+	data->dinner_over = false;
 	data->num_of_philo = ft_atoi(argv[1]);
 	data->time_to_die = ft_atoi(argv[2]);
 	data->time_to_eat = ft_atoi(argv[3]);
