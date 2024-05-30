@@ -6,22 +6,20 @@
 /*   By: sgeiger <sgeiger@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 18:47:36 by sgeiger           #+#    #+#             */
-/*   Updated: 2024/05/30 00:54:08 by sgeiger          ###   ########.fr       */
+/*   Updated: 2024/05/30 02:23:03 by sgeiger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
 /*
---	Need difference between hard and soft cut.
-	One fully the other one after the process.
---	Where checks for dead?
 -- sometimes infinte loop, why?
 */
 void	sim_eat(t_data *data, t_philo *philo)
 {
 	pthread_mutex_lock(philo->r_fork);
-	safe_write(data, philo, OP_FORK);
+	if (philo->l_fork)
+		safe_write(data, philo, OP_FORK);
 	pthread_mutex_lock(philo->l_fork);
 	safe_write(data, philo, OP_FORK);
 	safe_write(data, philo, OP_EAT);
@@ -79,7 +77,8 @@ void	create_threads(t_data *data)
 	i = 0;
 	while (i < data->num_of_philo)
 	{
-		pthread_create(&data->philos[i].th, NULL, &dinner_routine, &data->philos[i]);
+		pthread_create(&data->philos[i].th, NULL,
+			&dinner_routine, &data->philos[i]);
 		i++;
 	}
 }
@@ -115,9 +114,9 @@ void	watch_threads(t_data *data)
 
 int	main(int argc, char *argv[])
 {
-	t_data			data;
+	t_data	data;
 
-	ft_bzero(&data, sizeof(t_data));
+	memset(&data, 0, sizeof(t_data));
 	input_handler(&data, argc, argv);
 	init_mutex(&data);
 	init_philo(&data);
@@ -125,6 +124,5 @@ int	main(int argc, char *argv[])
 	init_time(&data);
 	data.dinner_ready = true;
 	watch_threads(&data);
-	join_threads(&data);
-	pthread_mutex_destroy(&data.lock);
+	cleanup_exit(&data);
 }

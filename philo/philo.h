@@ -6,7 +6,7 @@
 /*   By: sgeiger <sgeiger@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 18:47:31 by sgeiger           #+#    #+#             */
-/*   Updated: 2024/05/29 22:04:12 by sgeiger          ###   ########.fr       */
+/*   Updated: 2024/05/30 02:22:35 by sgeiger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include <unistd.h>
 # include <stdbool.h>
 # include <sys/time.h>
+# include <string.h>
 
 typedef struct s_data	t_data;
 typedef pthread_mutex_t	t_mtx;
@@ -39,7 +40,7 @@ typedef enum e_status
 	SLEEPING,
 	THINKING,
 	DEAD
-} t_status;
+}	t_status;
 
 typedef struct s_philo
 {
@@ -70,11 +71,7 @@ struct s_data
 	t_mtx		lock;
 };
 
-// utils
-size_t	ft_strlen(const char *s);
-void	ft_bzero(void *b, size_t len);
-int		ft_atoi(const char *str);
-
+// thread utils
 long	get_time(t_data *data);
 void	safe_write(t_data *data, t_philo *philo, t_write_op op);
 void	sleep_until(t_data *data, long duration);
@@ -88,7 +85,8 @@ void	init_philo(t_data *data);
 void	init_time(t_data *data);
 
 //cleanup and exit
-void	cleanup_exit(char *str);
+void	cleanup_exit(t_data *data);
 void	join_threads(t_data *data);
+void	exit_str(char *str);
 
 #endif

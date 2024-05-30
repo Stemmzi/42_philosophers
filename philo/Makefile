@@ -1,5 +1,5 @@
 NAME				=	philo
-SRC					=	utils.c input_handler.c init.c cleanup_exit.c philo.c
+SRC					=	input_handler.c thread_utils.c init.c cleanup_exit.c philo.c
 OBJ					=	$(SRC:.c=.o)
 CFLAGS				=	-Wall -Wextra -Werror
 CC					=	cc
