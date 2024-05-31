@@ -20,10 +20,10 @@ fclean: clean
 	rm -f $(NAME)
 
 t: all
-	@./$(NAME) 31 610 200 100 10
+	@./$(NAME) 5 800 200 200 7
 
 to: all
-	@./$(NAME) 131 600 200 200 10 > output.txt
+	@./$(NAME) 5 800 200 200 7 > output.txt
 
 f: $(OBJ)
 	$(CC) $(OBJ) $(FSANITIZE) -pthread -o $(NAME)

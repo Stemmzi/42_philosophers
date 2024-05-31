@@ -6,7 +6,7 @@
 /*   By: sgeiger <sgeiger@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/30 23:34:43 by sgeiger           #+#    #+#             */
-/*   Updated: 2024/05/31 02:31:22 by sgeiger          ###   ########.fr       */
+/*   Updated: 2024/05/31 16:47:18 by sgeiger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,8 +69,10 @@ void	*dinner_routine(void *arg)
 
 	philo = (t_philo *)arg;
 	data = philo->data;
-	while (!data->dinner_ready)
+	while (!data->dinner_ready && !data->init_fail)
 		usleep(100);
+	if (data->init_fail)
+		return (NULL);
 	if (philo->id % 2 != 0)
 		sleep_until(data, data->time_to_eat / 2);
 	while (!data->dinner_over)
@@ -85,7 +87,6 @@ void	*dinner_routine(void *arg)
 			sim_think(data, philo);
 		if (philo->status == DEAD)
 			return (NULL);
-		// printf("test by thread %d\n", philo->id);
 	}
 	return (NULL);
 }

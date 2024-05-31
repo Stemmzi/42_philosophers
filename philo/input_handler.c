@@ -6,7 +6,7 @@
 /*   By: sgeiger <sgeiger@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 23:31:32 by sgeiger           #+#    #+#             */
-/*   Updated: 2024/05/30 19:31:03 by sgeiger          ###   ########.fr       */
+/*   Updated: 2024/05/31 17:10:56 by sgeiger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ static int	ft_strcmp(const char *s1, const char *s2)
 	}
 	return (-s2[count]);
 }
+
 size_t	ft_strlen(const char *s)
 {
 	size_t	size;
@@ -107,4 +108,6 @@ void	input_handler(t_data *data, int argc, char *argv[])
 	data->time_to_sleep = ft_atoi(argv[4]);
 	if (argc == 6)
 		data->num_must_eat = ft_atoi(argv[5]);
+	else
+		data->num_must_eat = 2147483647;
 }

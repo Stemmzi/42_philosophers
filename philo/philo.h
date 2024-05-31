@@ -6,7 +6,7 @@
 /*   By: sgeiger <sgeiger@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 18:47:31 by sgeiger           #+#    #+#             */
-/*   Updated: 2024/05/31 02:30:44 by sgeiger          ###   ########.fr       */
+/*   Updated: 2024/05/31 15:52:24 by sgeiger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ struct s_data
 	int			time_to_sleep;
 	int			num_must_eat;
 	t_mtx		write_lock;
+	bool		init_fail;
 };
 
 // thread utils
@@ -89,8 +90,7 @@ void	init_time(t_data *data);
 void	*dinner_routine(void *arg);
 
 //cleanup and exit
-void	cleanup_exit(t_data *data);
-void	join_threads(t_data *data);
+void	cleanup_exit(t_data *data, int exit_code);
 void	exit_str(char *str);
 
 #endif

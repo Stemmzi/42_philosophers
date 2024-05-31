@@ -6,39 +6,51 @@
 /*   By: sgeiger <sgeiger@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 22:01:18 by sgeiger           #+#    #+#             */
-/*   Updated: 2024/05/30 20:40:04 by sgeiger          ###   ########.fr       */
+/*   Updated: 2024/05/31 17:16:04 by sgeiger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	join_threads(t_data *data)
+void	cleanup_mutex(t_data *data)
 {
 	int	i;
 
 	i = 0;
+	pthread_mutex_unlock(&data->write_lock);
+	pthread_mutex_destroy(&data->write_lock);
 	while (i < data->num_of_philo)
 	{
-		pthread_join(data->philos[i].th, NULL);
+		pthread_mutex_unlock(&data->forks[i]);
+		pthread_mutex_destroy(&data->forks[i]);
 		i++;
 	}
 }
 
-void	cleanup_exit(t_data *data)
+void	cleanup_threads(t_data *data)
 {
-	int	i;
+	int		i;
 
 	i = 0;
-	while (i < data->num_of_philo)
+	while (i < data->num_of_philo && data->philos[i].th)
 	{
-		pthread_join(data->philos[i].th, NULL);
-		pthread_mutex_destroy(&data->forks[i]);
+		if (pthread_join(data->philos[i].th, NULL) != 0)
+			write(STDERR_FILENO, "Error: Failed to join threads\n", 30);
 		i++;
 	}
-	pthread_mutex_destroy(&data->write_lock);
+}
+
+void	cleanup_exit(t_data *data, int exit_code)
+{
+	data->init_fail = true;
+	cleanup_mutex(data);
+	cleanup_threads(data);
 	free(data->philos);
 	free(data->forks);
-	exit(EXIT_SUCCESS); //?
+	if (exit_code == 1)
+		exit(EXIT_FAILURE);
+	else
+		exit(EXIT_SUCCESS);
 }
 
 void	exit_str(char *str)
