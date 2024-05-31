@@ -6,7 +6,7 @@
 /*   By: sgeiger <sgeiger@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 22:01:18 by sgeiger           #+#    #+#             */
-/*   Updated: 2024/05/31 17:16:04 by sgeiger          ###   ########.fr       */
+/*   Updated: 2024/05/31 17:46:14 by sgeiger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ void	cleanup_mutex(t_data *data)
 	{
 		pthread_mutex_unlock(&data->forks[i]);
 		pthread_mutex_destroy(&data->forks[i]);
+		pthread_mutex_unlock(&data->philos[i].death_lock);
+		pthread_mutex_destroy(&data->philos[i].death_lock);
 		i++;
 	}
 }
@@ -34,6 +36,7 @@ void	cleanup_threads(t_data *data)
 	i = 0;
 	while (i < data->num_of_philo && data->philos[i].th)
 	{
+		// printf("test\n");
 		if (pthread_join(data->philos[i].th, NULL) != 0)
 			write(STDERR_FILENO, "Error: Failed to join threads\n", 30);
 		i++;
