@@ -6,7 +6,7 @@
 /*   By: sgeiger <sgeiger@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 22:01:18 by sgeiger           #+#    #+#             */
-/*   Updated: 2024/05/31 17:46:14 by sgeiger          ###   ########.fr       */
+/*   Updated: 2024/05/31 17:54:52 by sgeiger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ void	cleanup_threads(t_data *data)
 	i = 0;
 	while (i < data->num_of_philo && data->philos[i].th)
 	{
-		// printf("test\n");
 		if (pthread_join(data->philos[i].th, NULL) != 0)
 			write(STDERR_FILENO, "Error: Failed to join threads\n", 30);
 		i++;
