@@ -6,7 +6,7 @@
 /*   By: sgeiger <sgeiger@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 18:47:36 by sgeiger           #+#    #+#             */
-/*   Updated: 2024/05/31 17:22:59 by sgeiger          ###   ########.fr       */
+/*   Updated: 2024/05/31 17:36:31 by sgeiger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,16 @@ void	create_threads(t_data *data)
 	}
 }
 
+void	philo_died(t_data *data, int i)
+{
+	pthread_mutex_lock(&data->philos[i].death_lock);
+	pthread_mutex_lock(&data->write_lock);
+	printf("%ld %d died\n", data->elapsed_time, data->philos[i].id);
+	data->dinner_over = true;
+	pthread_mutex_unlock(&data->write_lock);
+	pthread_mutex_unlock(&data->philos[i].death_lock);
+}
+
 void	watch_threads(t_data *data)
 {
 	int	i;
@@ -46,12 +56,7 @@ void	watch_threads(t_data *data)
 			if (!data->dinner_over && data->philos[i].last_meal_time
 				+ data->time_to_die <= data->elapsed_time)
 			{
-				pthread_mutex_lock(&data->philos[i].death_lock);
-				pthread_mutex_lock(&data->write_lock);
-				printf("%ld %d died\n", data->elapsed_time, data->philos[i].id);
-				data->dinner_over = true;
-				pthread_mutex_unlock(&data->write_lock);
-				pthread_mutex_unlock(&data->philos[i].death_lock);
+				philo_died(data, i);
 				break ;
 			}
 			i++;
