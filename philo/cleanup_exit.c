@@ -6,7 +6,7 @@
 /*   By: sgeiger <sgeiger@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 22:01:18 by sgeiger           #+#    #+#             */
-/*   Updated: 2024/05/30 01:25:59 by sgeiger          ###   ########.fr       */
+/*   Updated: 2024/05/30 20:40:04 by sgeiger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	cleanup_exit(t_data *data)
 		pthread_mutex_destroy(&data->forks[i]);
 		i++;
 	}
-	pthread_mutex_destroy(&data->lock);
+	pthread_mutex_destroy(&data->write_lock);
 	free(data->philos);
 	free(data->forks);
 	exit(EXIT_SUCCESS); //?

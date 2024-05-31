@@ -6,7 +6,7 @@
 /*   By: sgeiger <sgeiger@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 23:37:12 by sgeiger           #+#    #+#             */
-/*   Updated: 2024/05/30 02:22:25 by sgeiger          ###   ########.fr       */
+/*   Updated: 2024/05/30 20:40:04 by sgeiger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ long	get_time(t_data *data)
 
 void	safe_write(t_data *data, t_philo *philo, t_write_op op)
 {
-	pthread_mutex_lock(&data->lock);
+	pthread_mutex_lock(&data->write_lock);
 	if (op == OP_FORK && !data->dinner_over)
 		printf("%ld %d has taken a fork\n", data->elapsed_time, philo->id);
 	else if (op == OP_EAT && !data->dinner_over)
@@ -32,7 +32,7 @@ void	safe_write(t_data *data, t_philo *philo, t_write_op op)
 		printf("%ld %d is sleeping\n", data->elapsed_time, philo->id);
 	else if (op == OP_THINK && !data->dinner_over)
 		printf("%ld %d is thinking\n", data->elapsed_time, philo->id);
-	pthread_mutex_unlock(&data->lock);
+	pthread_mutex_unlock(&data->write_lock);
 }
 
 void	sleep_until(t_data *data, long duration)

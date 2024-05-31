@@ -6,7 +6,7 @@
 /*   By: sgeiger <sgeiger@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 18:47:31 by sgeiger           #+#    #+#             */
-/*   Updated: 2024/05/30 02:22:35 by sgeiger          ###   ########.fr       */
+/*   Updated: 2024/05/31 02:30:44 by sgeiger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ struct s_data
 	int			time_to_eat;
 	int			time_to_sleep;
 	int			num_must_eat;
-	t_mtx		lock;
+	t_mtx		write_lock;
 };
 
 // thread utils
@@ -78,11 +78,15 @@ void	sleep_until(t_data *data, long duration);
 
 // input handler
 void	input_handler(t_data *data, int argc, char *argv[]);
+size_t	ft_strlen(const char *s);
 
 // init
 void	init_mutex(t_data *data);
 void	init_philo(t_data *data);
 void	init_time(t_data *data);
+
+//actions
+void	*dinner_routine(void *arg);
 
 //cleanup and exit
 void	cleanup_exit(t_data *data);

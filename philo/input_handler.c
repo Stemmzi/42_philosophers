@@ -6,21 +6,11 @@
 /*   By: sgeiger <sgeiger@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 23:31:32 by sgeiger           #+#    #+#             */
-/*   Updated: 2024/05/30 02:21:05 by sgeiger          ###   ########.fr       */
+/*   Updated: 2024/05/30 19:31:03 by sgeiger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-
-static size_t	ft_strlen(const char *s)
-{
-	size_t	size;
-
-	size = 0;
-	while (s[size] != '\0')
-		size++;
-	return (size);
-}
 
 static int	ft_atoi(const char *str)
 {
@@ -65,6 +55,15 @@ static int	ft_strcmp(const char *s1, const char *s2)
 	}
 	return (-s2[count]);
 }
+size_t	ft_strlen(const char *s)
+{
+	size_t	size;
+
+	size = 0;
+	while (s[size] != '\0')
+		size++;
+	return (size);
+}
 
 bool	is_int(char *str)
 {
@@ -102,15 +101,10 @@ void	input_handler(t_data *data, int argc, char *argv[])
 			exit_str("Error: Only integer > 0 as input allowed!\n");
 		i++;
 	}
-	// data->full = 0;
-	// data->dinner_ready = false;
-	// data->dinner_over = false;
 	data->num_of_philo = ft_atoi(argv[1]);
 	data->time_to_die = ft_atoi(argv[2]);
 	data->time_to_eat = ft_atoi(argv[3]);
 	data->time_to_sleep = ft_atoi(argv[4]);
 	if (argc == 6)
 		data->num_must_eat = ft_atoi(argv[5]);
-	// else
-	// 	data->num_must_eat = 0;
 }

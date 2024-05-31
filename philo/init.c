@@ -6,7 +6,7 @@
 /*   By: sgeiger <sgeiger@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 23:59:35 by sgeiger           #+#    #+#             */
-/*   Updated: 2024/05/30 02:24:25 by sgeiger          ###   ########.fr       */
+/*   Updated: 2024/05/31 02:31:03 by sgeiger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,11 @@ void	init_mutex(t_data *data)
 	int	i;
 
 	i = 0;
-	pthread_mutex_init(&data->lock, NULL);
-	data->forks = malloc((data->num_of_philo + 1) * sizeof(t_mtx));
+	pthread_mutex_init(&data->write_lock, NULL);
+	data->forks = malloc(data->num_of_philo * sizeof(t_mtx));
 	if (!data->forks)
 		return ;
-	memset(data->philos, 0, (data->num_of_philo + 1) * sizeof(t_philo));
+	memset(data->forks, 0, data->num_of_philo * sizeof(t_mtx));
 	i = 0;
 	while (i < data->num_of_philo)
 	{
@@ -35,10 +35,10 @@ void	init_philo(t_data *data)
 	int	i;
 
 	i = 0;
-	data->philos = malloc((data->num_of_philo + 1) * sizeof(t_philo));
+	data->philos = malloc(data->num_of_philo * sizeof(t_philo));
 	if (!data->philos)
 		return ;
-	memset(data->philos, 0, (data->num_of_philo + 1) * sizeof(t_philo));
+	memset(data->philos, 0, data->num_of_philo * sizeof(t_philo));
 	while (i < data->num_of_philo)
 	{
 		data->philos[i].data = data;
@@ -64,8 +64,7 @@ void	init_time(t_data *data)
 	data->start_time = (start_time.tv_sec * 1000) + (start_time.tv_usec / 1000);
 	while (i < data->num_of_philo)
 	{
-		data->philos[i].last_meal_time = data->start_time;
+		data->philos[i].last_meal_time = 0;
 		i++;
 	}
-	data->elapsed_time = data->start_time;
 }
