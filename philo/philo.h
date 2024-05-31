@@ -6,7 +6,7 @@
 /*   By: sgeiger <sgeiger@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 18:47:31 by sgeiger           #+#    #+#             */
-/*   Updated: 2024/05/31 15:52:24 by sgeiger          ###   ########.fr       */
+/*   Updated: 2024/05/31 17:20:56 by sgeiger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ typedef struct s_philo
 	t_status	status;
 	t_mtx		*l_fork;
 	t_mtx		*r_fork;
+	t_mtx		death_lock;
 }				t_philo;
 
 struct s_data

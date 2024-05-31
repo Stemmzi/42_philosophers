@@ -6,7 +6,7 @@
 /*   By: sgeiger <sgeiger@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 23:59:35 by sgeiger           #+#    #+#             */
-/*   Updated: 2024/05/31 16:45:12 by sgeiger          ###   ########.fr       */
+/*   Updated: 2024/05/31 17:24:40 by sgeiger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ void	init_mutex(t_data *data)
 	if (!data->forks)
 		cleanup_exit(data, 1);
 	memset(data->forks, 0, data->num_of_philo * sizeof(t_mtx));
-	i = 0;
 	while (i < data->num_of_philo)
 	{
 		if (pthread_mutex_init(&data->forks[i], NULL) != 0)
@@ -47,6 +46,8 @@ void	init_philo(t_data *data)
 		data->philos[i].num_ate = 0;
 		data->philos[i].status = EATING;
 		data->philos[i].id = i + 1;
+		if (pthread_mutex_init(&data->philos[i].death_lock, NULL) != 0)
+			cleanup_exit(data, 1);
 		data->philos[i].r_fork = &data->forks[i];
 		if (data->philos[i].id == data->num_of_philo)
 			data->philos[i].l_fork = &data->forks[0];
