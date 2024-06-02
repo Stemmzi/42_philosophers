@@ -6,7 +6,7 @@
 /*   By: sgeiger <sgeiger@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/30 23:34:43 by sgeiger           #+#    #+#             */
-/*   Updated: 2024/05/31 17:23:37 by sgeiger          ###   ########.fr       */
+/*   Updated: 2024/05/31 18:18:43 by sgeiger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,11 @@ void	sim_eat(t_data *data, t_philo *philo)
 	else
 	{
 		pthread_mutex_lock(&philo->death_lock);
+		if (data->dinner_over)
+		{
+			pthread_mutex_unlock(&philo->death_lock);
+			return ;
+		}
 		safe_write(data, philo, OP_EAT);
 		philo->last_meal_time = data->elapsed_time;
 		pthread_mutex_unlock(&philo->death_lock);
